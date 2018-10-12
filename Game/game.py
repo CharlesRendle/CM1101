@@ -3,7 +3,7 @@
 from map import rooms
 import string
 
-def remove_punct(text):
+def remove_punct(text): #Complete
     """This function is used to remove all punctuation
     marks from a string. Spaces do not count as punctuation and should
     not be removed. The funcion takes a string and returns a new string
@@ -30,9 +30,10 @@ def remove_punct(text):
         elif char.isdigit() == True:
             new_text = new_text + char
 
-    print("'" + new_text + "'")
+    #print("'" + new_text + "'")
+    return(new_text)
     
-def remove_spaces(text):
+def remove_spaces(text): #Complete
     """This function is used to remove leading and trailing spaces from a string.
     It takes a string and returns a new string with does not have leading and
     trailing spaces. For example:
@@ -76,10 +77,11 @@ def remove_spaces(text):
             trailing_space = False
             new_text = new_text[0:len(new_text) - counter]
 
-    print("'" + new_text + "'")
+    #print("'" + new_text + "'")
+    return(new_text)
 
 
-def normalise_input(user_input):
+def normalise_input(user_input): #Complete
     """This function removes all punctuation, leading and trailing
     spaces from a string, and converts the string to lower case.
     For example:
@@ -130,11 +132,14 @@ def normalise_input(user_input):
             trailing_space = False
             new_text = new_text[0:len(new_text) - counter]
 
-    new_text = new_text.lower()
+    #new_text = new_text.lower()
+    user_input = new_text.lower()
 
-    print("'" + new_text + "'")
+    #print("'" + new_text + "'")
+    #return(new_text)
+    return(user_input)
     
-def display_room(room):
+def display_room(room): #Complete
     """This function takes a room as an input and nicely displays its name
     and description. The room argument is a dictionary with entries "name",
     "description" etc. (see map.py for the definition). The name of the room
@@ -161,7 +166,7 @@ def display_room(room):
     print(room["description"])
     print()
     
-def exit_leads_to(exits, direction):
+def exit_leads_to(exits, direction): #Complete
     """This function takes a dictionary of exits and a direction (a particular
     exit taken from this dictionary). It returns the name of the room into which
     this exit leads. For example:
@@ -177,7 +182,7 @@ def exit_leads_to(exits, direction):
 
     return(rooms[exits[direction]]["name"])
 
-def print_menu_line(direction, leads_to):
+def print_menu_line(direction, leads_to): #Complete
     """This function prints a line of a menu of exits. It takes two strings: a
     direction (the name of an exit) and the name of the room into which it
     leads (leads_to), and should print a menu line in the following format:
@@ -192,11 +197,10 @@ def print_menu_line(direction, leads_to):
     """
     pass
 
-    onwards = rooms[leads_to[direction]]["name"]
-    print("Go " + direction.upper() + " to " + onwards)
+    print("Go " + direction.upper() + " to " + leads_to + ".")
 
 
-def print_menu(exits):
+def print_menu(exits): #Complete
     """This function displays the menu of available exits to the player. The
     argument exits is a dictionary of exits as exemplified in map.py. The
     menu should, for each exit, call the function print_menu_line() to print
@@ -216,11 +220,15 @@ def print_menu(exits):
     # COMPLETE THIS PART:
     # Iterate over available exits:
     #     and for each exit print the appropriate menu line
+    
+    for directions in exits:
+        print_menu_line(directions, exit_leads_to(exits, directions))
+        
 
     print("Where do you want to go?")
 
 
-def is_valid_exit(exits, user_input):
+def is_valid_exit(exits, user_input): #Complete
     """This function checks, given a dictionary "exits" (see map.py) and
     a players's choice "user_input" whether the player has chosen a valid exit.
     It returns True if the exit is valid, and False otherwise. Assume that
@@ -237,6 +245,12 @@ def is_valid_exit(exits, user_input):
     True
     """
     pass
+
+    for keys in exits:
+        if user_input == keys:
+            return(True)
+        else:
+            return(False)
 
 
 def menu(exits):
@@ -255,18 +269,26 @@ def menu(exits):
         # COMPLETE THIS PART:
         
         # Display menu
+        print_menu(exits)
 
         # Read player's input
+        user_input = input(">> ")
 
         # Normalise the input
+        normalise_input(user_input)
 
         # Check if the input makes sense (is valid exit)
             # If so, return the player's choice
+        
+        is_valid_exit(exits, user_input)
+        if True:
+            return(user_input)
+        else:
+            print("Error")
 
+        
 
-
-
-def move(exits, direction):
+def move(exits, direction): #complete
     """This function returns the room into which the player will move if, from a
     dictionary "exits" of avaiable exits, they choose to move towards the exit
     with the name given by "direction". For example:
@@ -280,6 +302,7 @@ def move(exits, direction):
     """
     pass
 
+    return(rooms[exits[direction]])
 
 # This is the entry point of our program
 def main():
